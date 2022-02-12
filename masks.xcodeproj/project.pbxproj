@@ -16,6 +16,8 @@
 		C656DB3527B80F62008D4521 /* masksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656DB3427B80F62008D4521 /* masksTests.swift */; };
 		C656DB3F27B80F62008D4521 /* masksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656DB3E27B80F62008D4521 /* masksUITests.swift */; };
 		C656DB4127B80F62008D4521 /* masksUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656DB4027B80F62008D4521 /* masksUITestsLaunchTests.swift */; };
+		C656DB4F27B810D6008D4521 /* GLTFSceneKit in Frameworks */ = {isa = PBXBuildFile; productRef = C656DB4E27B810D6008D4521 /* GLTFSceneKit */; };
+		C656DB5127B813DD008D4521 /* TextureSampler.metal in Sources */ = {isa = PBXBuildFile; fileRef = C656DB5027B813DD008D4521 /* TextureSampler.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,7 @@
 		C656DB3A27B80F62008D4521 /* masksUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = masksUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C656DB3E27B80F62008D4521 /* masksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = masksUITests.swift; sourceTree = "<group>"; };
 		C656DB4027B80F62008D4521 /* masksUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = masksUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C656DB5027B813DD008D4521 /* TextureSampler.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = TextureSampler.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C656DB4F27B810D6008D4521 /* GLTFSceneKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +108,7 @@
 				C656DB2427B80F62008D4521 /* Main.storyboard */,
 				C656DB2727B80F62008D4521 /* Assets.xcassets */,
 				C656DB2927B80F62008D4521 /* LaunchScreen.storyboard */,
+				C656DB5027B813DD008D4521 /* TextureSampler.metal */,
 			);
 			path = masks;
 			sourceTree = "<group>";
@@ -141,6 +146,9 @@
 			dependencies = (
 			);
 			name = masks;
+			packageProductDependencies = (
+				C656DB4E27B810D6008D4521 /* GLTFSceneKit */,
+			);
 			productName = masks;
 			productReference = C656DB1B27B80F62008D4521 /* masks.app */;
 			productType = "com.apple.product-type.application";
@@ -213,6 +221,9 @@
 				Base,
 			);
 			mainGroup = C656DB1227B80F62008D4521;
+			packageReferences = (
+				C656DB4D27B810D6008D4521 /* XCRemoteSwiftPackageReference "GLTFSceneKit" */,
+			);
 			productRefGroup = C656DB1C27B80F62008D4521 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -259,6 +270,7 @@
 			files = (
 				C656DB2327B80F62008D4521 /* GameViewController.swift in Sources */,
 				C656DB1F27B80F62008D4521 /* AppDelegate.swift in Sources */,
+				C656DB5127B813DD008D4521 /* TextureSampler.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,6 +608,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C656DB4D27B810D6008D4521 /* XCRemoteSwiftPackageReference "GLTFSceneKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/magicien/GLTFSceneKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C656DB4E27B810D6008D4521 /* GLTFSceneKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C656DB4D27B810D6008D4521 /* XCRemoteSwiftPackageReference "GLTFSceneKit" */;
+			productName = GLTFSceneKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C656DB1327B80F62008D4521 /* Project object */;
 }

@@ -1,16 +1,43 @@
 //
 //  GameViewController.swift
-//  masks
+//  scene-kit-test
 //
-//  Created by Mikhail Pasechnik on 12.02.2022.
+//  Created by Mikhail Pasechnik on 11.02.2022.
 //
 
 import UIKit
 import QuartzCore
 import SceneKit
+import GLTFSceneKit
+
 
 class GameViewController: UIViewController {
 
+    func makeSphere(scene: SCNScene, rangeX: Int, rangeZ: Int, mul: Double = 0.1, radius: Double = 0.03) {
+        let program = SCNProgram()
+        program.vertexFunctionName = "textureSamplerVertex"
+        program.fragmentFunctionName = "textureSamplerFragment"
+        guard let landscapeImage  = UIImage(named: "landscape") else {
+          return
+        }
+        let materialProperty = SCNMaterialProperty(contents: landscapeImage)
+
+        let sphere = SCNSphere(radius: radius)
+        sphere.firstMaterial?.program = program
+        sphere.firstMaterial?.setValue(materialProperty, forKey: "customTexture")
+        
+        for i in 0...rangeX {
+            for j in 0...rangeZ {
+                let sphereNode = SCNNode(geometry: sphere)
+                
+                sphereNode.position = SCNVector3(Double(i) * mul, 0, Double(j) * mul)
+
+                
+                // Parent sphere node into the rootNode of SCENE
+                scene.rootNode.addChildNode(sphereNode)
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,7 +70,7 @@ class GameViewController: UIViewController {
         let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
         
         // animate the 3d object
-        ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
+        // ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
         
         // retrieve the SCNView
         let scnView = self.view as! SCNView
@@ -63,6 +90,12 @@ class GameViewController: UIViewController {
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
+        
+        let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
+        let node = SCNNode(geometry: box)
+        node.position = SCNVector3(0,0,0)
+        scene.rootNode.addChildNode(node)
+        makeSphere(scene: scene, rangeX: 10, rangeZ: 10, mul: 1, radius: 0.5)
     }
     
     @objc
@@ -98,6 +131,26 @@ class GameViewController: UIViewController {
             material.emission.contents = UIColor.red
             
             SCNTransaction.commit()
+            
+            
+            SCNTransaction.begin()
+            SCNTransaction.animationDuration = 0.5
+            // on completion - unhighlight
+            SCNTransaction.completionBlock = {
+                SCNTransaction.begin()
+                SCNTransaction.animationDuration = 0.5
+                
+                result.node.scale = SCNVector3(1, 1, 1)
+                let box = SCNBox()
+                box.firstMaterial?.program = result.node.geometry?.firstMaterial?.program;
+                box.firstMaterial?.setValue(result.node.geometry?.firstMaterial?.value(forKey: "customTexture"), forKey: "customTexture")
+                result.node.geometry = box
+                SCNTransaction.commit()
+            }
+            
+            result.node.scale = SCNVector3(0.1, 0.1, 0.1)
+            SCNTransaction.commit()
+            
         }
     }
     
